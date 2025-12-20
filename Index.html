@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SPACE GLASS</title>
+  <style>
+    body {
+      margin:0;
+      font-family: Arial;
+      background: black url('https://i.imgur.com/9QO3Yxk.jpg') center/cover;
+      color:white;
+      text-align:center;
+    }
+    .menu {
+      position:absolute;
+      bottom:30px;
+      width:100%;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      padding:20px;
+    }
+    .btn {
+      background:rgba(255,255,255,0.2);
+      padding:20px;
+      border-radius:10px;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h2>SPACE GLASS</h2>
+
+<div class="menu">
+  <div class="btn">PRIZES</div>
+  <div class="btn">SCORES</div>
+  <div class="btn" onclick="location.href='game.html'">PLAY</div>
+  <div class="btn" onclick="location.href='wallet.html'">WALLET</div>
+</div>
+
+</body>
+</html>
