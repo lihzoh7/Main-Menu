@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Main Menu</title>
+  <style>
+    body {
+      margin:0; padding:0;
+      background: url('https://i.imgur.com/9sJ9uIq.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial;
+      color: white;
+      text-align:center;
+    }
+    .glass {
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      margin: auto;
+      transform: rotate(15deg);
+      margin-top:50px;
+    }
+    .tabs button {
+      width:120px;
+      margin: 10px;
+      padding: 10px;
+      background: rgba(0,0,0,0.5);
+      color:white;
+      border:none;
+      cursor:pointer;
+    }
+    .top-icons {
+      position: fixed;
+      top:10px;
+      width:100%;
+      display:flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-icons">
+  <span id="settings">🔨</span>
+  <div>
+    <span id="messages">✉</span>
+    <span id="profile">👤</span>
+  </div>
+</div>
+
+<h2 style="font-size:14px;">SPACE GLASS</h2>
+
+<div class="glass"></div>
+
+<div class="tabs">
+  <button onclick="location.href='Prizes.html'">PRIZES</button>
+  <button onclick="location.href='Leaderboard.html'">SCORES</button>
+  <button onclick="startGame()">PLAY</button>
+  <button onclick="location.href='Wallet.html'">WALLET</button>
+</div>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { onValue, ref } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+onAuthStateChanged(auth, user => {
+  if (!user) window.location.href = "index.html";
+});
+
+document.getElementById("profile").onclick = () => window.location.href='Profile.html';
+document.getElementById("messages").onclick = () => window.location.href='Messages.html';
+document.getElementById("settings").onclick = () => window.location.href='Settings.html';
+
+window.startGame = () => {
+  alert("Game start placeholder"); // connect your game page URL here
+};
+</script>
+
+</body>
+</html>
