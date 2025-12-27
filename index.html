@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SPACE GLASS – Main Menu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+    url("https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  overflow: hidden;
+}
+
+/* HEADER */
+.header {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  font-size: 22px;
+}
+
+.header span {
+  cursor: pointer;
+}
+
+/* TITLE */
+.title {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 40px;
+  letter-spacing: 1px;
+}
+
+/* GLASS ICON */
+.glass {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(15deg);
+  font-size: 220px;
+  opacity: 0.18;
+}
+
+/* MENU PANEL */
+.menu-panel {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(2, 140px);
+  gap: 16px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.menu button {
+  height: 50px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.25);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menu button:hover {
+  background: rgba(0,0,0,0.85);
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <span onclick="goSettings()">🛠</span>
+  <div>
+    <span onclick="goMessages()">✉</span>
+    <span onclick="goProfile()">👤</span>
+  </div>
+</div>
+
+<!-- TITLE -->
+<div class="title">SPACE GLASS</div>
+
+<!-- GLASS -->
+<div class="glass">🍸</div>
+
+<!-- MENU -->
+<div class="menu-panel">
+  <div class="menu">
+    <button onclick="goPrizes()">PRIZES</button>
+    <button onclick="goScores()">SCORES</button>
+    <button onclick="goPlay()">PLAY</button>
+    <button onclick="goWallet()">WALLET</button>
+  </div>
+</div>
+
+<script type="module">
+import { auth } from '../firebase.js';
+import { onAuthStateChanged } from
+  "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+/* AUTH GUARD */
+onAuthStateChanged(auth, user => {
+  if (!user) {
+    window.location.href = 'https://lihzoh7.github.io/';
+  }
+});
+
+/* NAVIGATION */
+window.goSettings = () => location.href = 'https://lihzoh7.github.io/Settings/';
+window.goMessages = () => location.href = 'https://lihzoh7.github.io/Messages/';
+window.goProfile  = () => location.href = 'https://lihzoh7.github.io/Profile/';
+window.goPrizes   = () => location.href = 'https://lihzoh7.github.io/Prizes/';
+window.goScores   = () => location.href = 'https://lihzoh7.github.io/Leaderboard/';
+window.goPlay     = () => location.href = 'https://lihzoh7.github.io/Game/';
+window.goWallet   = () => location.href = 'https://lihzoh7.github.io/Wallet/';
+</script>
+
+</body>
+</html>
