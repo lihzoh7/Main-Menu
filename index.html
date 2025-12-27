@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SPACE GLASS - Main Menu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  color: white;
+
+  /* ✅ FIXED BACKGROUND */
+  background-image: url("https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+.icon {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* TITLE */
+.center-title {
+  text-align: center;
+  font-size: 14px;
+  margin-top: -8px;
+  font-weight: bold;
+}
+
+/* GLASS ICON */
+.glass {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(15deg);
+  font-size: 7rem;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* MENU GRID */
+.menu-grid {
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 140px);
+  gap: 12px;
+  justify-content: center;
+}
+
+.menu-btn {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid white;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.menu-btn:hover {
+  background: rgba(255,255,255,0.28);
+}
+
+.menu-btn.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* POPUP */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: red;
+  padding: 15px 25px;
+  border-radius: 8px;
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="icon" id="settings">🔨</div>
+  <div>
+    <span class="icon" id="messages">✉️</span>
+    <span class="icon" id="profile">👤</span>
+  </div>
+</header>
+
+<div class="center-title">SPACE GLASS</div>
+<div class="glass">🍸</div>
+
+<div class="menu-grid">
+  <div class="menu-btn" id="prizes">PRIZES</div>
+  <div class="menu-btn" id="scores">SCORES</div>
+  <div class="menu-btn" id="play">PLAY</div>
+  <div class="menu-btn" id="wallet">WALLET</div>
+</div>
+
+<div class="popup" id="popup">PRIZE NOT SET YET</div>
+
+<script type="module">
+import { auth, db } from "../firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+/* AUTH GUARD */
+onAuthStateChanged(auth, user => {
+  if (!user) {
+    window.location.href = "../index.html";
+  }
+});
+
+/* NAVIGATION */
+document.getElementById("wallet").onclick = () =>
+  window.location.href = "https://lihzoh7.github.io/Wallet/";
+
+document.getElementById("scores").onclick = () =>
+  window.location.href = "https://lihzoh7.github.io/Leaderboard/";
+
+document.getElementById("prizes").onclick = () =>
+  window.location.href = "https://lihzoh7.github.io/Prizes/";
+
+document.getElementById("profile").onclick = () =>
+  window.location.href = "https://lihzoh7.github.io/Profile/";
+
+document.getElementById("messages").onclick = () =>
+  window.location.href = "https://lihzoh7.github.io/Messages/";
+
+document.getElementById("settings").onclick = () =>
+  window.location.href = "https://lihzoh7.github.io/Settings/";
+
+/* PLAY AVAILABILITY */
+const playBtn = document.getElementById("play");
+const popup = document.getElementById("popup");
+
+onValue(ref(db, "prizes/current"), snap => {
+  if (snap.exists()) {
+    playBtn.classList.remove("disabled");
+    playBtn.onclick = () =>
+      window.location.href = "https://lihzoh7.github.io/Game/";
+  } else {
+    playBtn.classList.add("disabled");
+    playBtn.onclick = () => {
+      popup.style.display = "block";
+      setTimeout(() => popup.style.display = "none", 1500);
+    };
+  }
+});
+</script>
+
+</body>
+</html>
